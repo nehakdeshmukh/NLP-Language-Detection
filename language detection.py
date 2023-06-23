@@ -54,3 +54,20 @@ def clean_txt(text):
 # example
 txt = 'I am  (&*(()))finding %$#a Job '
 print(clean_txt(txt))
+
+x_train = [clean_txt(text) for text in tqdm(x_train)]
+x_test = [clean_txt(text) for text in tqdm(x_test)]
+
+# using Tfidf Vectorizer:
+tfidf = TfidfVectorizer()
+tfidf.fit(x_train)
+x_train_ready = tfidf.transform(x_train)
+x_test_ready = tfidf.transform(x_test)
+
+x_train_ready,x_test_ready
+
+
+enc = LabelEncoder()
+enc.fit(y_train)
+y_train_ready = enc.transform(y_train)
+y_test_ready = enc.transform(y_test)
