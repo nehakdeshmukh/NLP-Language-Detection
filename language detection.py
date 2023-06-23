@@ -22,7 +22,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import precision_score,recall_score,accuracy_score,classification_report,confusion_matrix #metrics
-
+from sklearn import tree
 
 data = pd.read_csv(r"C:\Neha\kaggle Projects\Git hub\NLP-Language-Detection\dataset.csv")
 
@@ -84,10 +84,18 @@ preds = enc.inverse_transform([0,3,5])
 print(preds)
 
 
-#Naive Classifier 0.662
+#Naive Classifier 0.941
 em_model = MultinomialNB().fit(x_train_ready, y_train_ready)
 pred_test_MNB = em_model.predict(x_test_ready)
 precision = precision_score(y_test_ready, pred_test_MNB,average='weighted',zero_division=1)
 recall = recall_score(y_test_ready, pred_test_MNB,average='weighted')
 accuracy = accuracy_score(y_test_ready, pred_test_MNB)
+print('Precision: {} / Recall: {} / Accuracy: {}'.format(np.round(precision, 3), np.round(recall, 3), np.round(accuracy, 3)))
+
+#Tree 0.9
+em_model = tree.DecisionTreeClassifier().fit(x_train_ready, y_train_ready)
+pred_test_MNB = em_model.predict (x_test_ready)
+precision = precision_score(y_test_ready, pred_test_MNB,average='weighted')
+recall = recall_score(y_test_ready, pred_test_MNB,average='weighted')
+accuracy = accuracy_score(y_test_ready, pred_test_MNB)#806
 print('Precision: {} / Recall: {} / Accuracy: {}'.format(np.round(precision, 3), np.round(recall, 3), np.round(accuracy, 3)))
