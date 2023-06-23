@@ -71,3 +71,13 @@ enc = LabelEncoder()
 enc.fit(y_train)
 y_train_ready = enc.transform(y_train)
 y_test_ready = enc.transform(y_test)
+
+# storing encoded label hast list as 'labels'
+labels = enc.classes_
+
+# display first 5 labels:
+print(labels[:5])
+
+
+preds = enc.inverse_transform([0,3,5])
+print(preds)
