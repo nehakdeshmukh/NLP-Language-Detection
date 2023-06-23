@@ -23,6 +23,9 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import precision_score,recall_score,accuracy_score,classification_report,confusion_matrix #metrics
 from sklearn import tree
+from sklearn.svm import SVC
+from sklearn.svm import LinearSVC
+
 
 data = pd.read_csv(r"C:\Neha\kaggle Projects\Git hub\NLP-Language-Detection\dataset.csv")
 
@@ -85,6 +88,7 @@ print(preds)
 
 
 #Naive Classifier 0.941
+print("Naive Classifier")
 em_model = MultinomialNB().fit(x_train_ready, y_train_ready)
 pred_test_MNB = em_model.predict(x_test_ready)
 precision = precision_score(y_test_ready, pred_test_MNB,average='weighted',zero_division=1)
@@ -93,9 +97,31 @@ accuracy = accuracy_score(y_test_ready, pred_test_MNB)
 print('Precision: {} / Recall: {} / Accuracy: {}'.format(np.round(precision, 3), np.round(recall, 3), np.round(accuracy, 3)))
 
 #Tree 0.9
+print("Decision Tree Classifier")
 em_model = tree.DecisionTreeClassifier().fit(x_train_ready, y_train_ready)
 pred_test_MNB = em_model.predict (x_test_ready)
 precision = precision_score(y_test_ready, pred_test_MNB,average='weighted')
 recall = recall_score(y_test_ready, pred_test_MNB,average='weighted')
-accuracy = accuracy_score(y_test_ready, pred_test_MNB)#806
+accuracy = accuracy_score(y_test_ready, pred_test_MNB)
 print('Precision: {} / Recall: {} / Accuracy: {}'.format(np.round(precision, 3), np.round(recall, 3), np.round(accuracy, 3)))
+
+
+#SVC 0.954
+print("SVC Classifier")
+em_model = SVC().fit(x_train_ready, y_train_ready)
+pred_test_MNB = em_model.predict(x_test_ready)
+precision = precision_score(y_test_ready, pred_test_MNB,average='weighted')
+recall = recall_score(y_test_ready, pred_test_MNB,average='weighted')
+accuracy = accuracy_score(y_test_ready, pred_test_MNB)
+print('Precision: {} / Recall: {} / Accuracy: {}'.format(np.round(precision, 3), np.round(recall, 3), np.round(accuracy, 3)))
+
+#LinearSVC 0.974
+print("Linear SVC Classifier")
+em_model_lin = LinearSVC().fit(x_train_ready, y_train_ready)
+y_pred = em_model_lin.predict(x_test_ready)          #
+precision = precision_score(y_test_ready, y_pred,average='weighted')
+recall = recall_score(y_test_ready, y_pred,average='weighted')
+accuracy = accuracy_score(y_test_ready, y_pred)
+print('Precision: {} / Recall: {} / Accuracy: {}'.format(np.round(precision, 3), np.round(recall, 3), np.round(accuracy, 3)))
+print(confusion_matrix(y_test_ready,y_pred))
+print (classification_report(y_test_ready, y_pred))
